@@ -62,5 +62,13 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="APIs\" />
+    <Folder Include="CorsSettings\" />
+    <Folder Include="Data\" />
+    <Folder Include="DotNetDLLs\" />
+    <Folder Include="FScanners\" />
+    <Folder Include="NeurotecDLLs\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
