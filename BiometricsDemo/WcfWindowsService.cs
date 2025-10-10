@@ -1,5 +1,5 @@
 ﻿using BiometricsDemo.CorsSettings;
-using BiometricsDemo.Services;
+using BiometricsDemo.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +8,7 @@ using System.ServiceModel.Description;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
+using BiometricsDemo.APIs;
 
 namespace BiometricsDemo
 {

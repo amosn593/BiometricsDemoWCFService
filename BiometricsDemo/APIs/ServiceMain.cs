@@ -1,4 +1,5 @@
-﻿using BiometricsDemo.Models;
+﻿using BiometricsDemo.Client;
+using BiometricsDemo.Models;
 using BiometricsDemo.RequestModels;
 using BiometricsDemo.ResponseModels;
 using BiometricsDemo.Server;

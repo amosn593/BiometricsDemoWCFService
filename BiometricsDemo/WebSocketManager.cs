@@ -1,7 +1,7 @@
 ﻿using BiometricsDemo.Models;
 using BiometricsDemo.RequestModels;
 using BiometricsDemo.ResponseModels;
-using BiometricsDemo.Services;
+using BiometricsDemo.Client;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
