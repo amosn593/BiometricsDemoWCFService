@@ -23,11 +23,27 @@ namespace BiometricsDemo.APIs
 
         [OperationContract]
         [WebInvoke(Method = "GET",
+                UriTemplate = "/deleteFaceFrameData",
+                RequestFormat = WebMessageFormat.Json,
+                ResponseFormat = WebMessageFormat.Json,
+                BodyStyle = WebMessageBodyStyle.Bare)]
+        ResponseModel<string> DeleteFaceFrameData(string path);
+
+        [OperationContract]
+        [WebInvoke(Method = "GET",
+                UriTemplate = "/deleteFingerPrintData",
+                RequestFormat = WebMessageFormat.Json,
+                ResponseFormat = WebMessageFormat.Json,
+                BodyStyle = WebMessageBodyStyle.Bare)]
+        ResponseModel<string> DeleteFingerPrintData(string path);
+
+        [OperationContract]
+        [WebInvoke(Method = "GET",
                 UriTemplate = "/getCameraList",
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json,
                 BodyStyle = WebMessageBodyStyle.Bare)]
-        List<CameraListResponseModel> getCameraList();
+        List<CameraListResponseModel> GetCameraList();
 
         [OperationContract]
         [WebInvoke(Method = "POST", UriTemplate = "/startWebSocket",

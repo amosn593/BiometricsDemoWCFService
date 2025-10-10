@@ -7,6 +7,7 @@ using Neurotec.Licensing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace BiometricsDemo.APIs
@@ -187,7 +188,7 @@ namespace BiometricsDemo.APIs
                 return $"Could not obtain license: {ex.Message}";
             }
         }
-        public List<CameraListResponseModel> getCameraList()
+        public List<CameraListResponseModel> GetCameraList()
         {
             try
             {
@@ -199,6 +200,86 @@ namespace BiometricsDemo.APIs
             {
                 Console.WriteLine($"Error in geCameraList: {ex.Message}");
                 return new List<CameraListResponseModel>();
+            }
+        }
+        public ResponseModel<string> DeleteFaceFrameData(string path)
+        {
+            try
+            {
+                var DirectoryPath = "C:\\BiometricsServer";
+                string FolderPath = Path.Combine(DirectoryPath, "FaceFrames", $"{path}");
+
+                if (Directory.Exists(FolderPath))
+                {
+                    Directory.Delete(FolderPath, recursive: true);
+                    Console.WriteLine($"Deleted  FaceFrames folder: {FolderPath}");
+                    return new ResponseModel<string>
+                    {
+                        Success = true,
+                        Message = $"Deleted FaceFrames folder: {FolderPath}",
+                        Data = FolderPath
+                    };
+                }
+                else
+                {
+                    Console.WriteLine($"Folder FaceFrames not found: {FolderPath}");
+                    return new ResponseModel<string>
+                    {
+                        Success = false,
+                        Message = $"Folder FaceFrames not found: {FolderPath}",
+                        Data = FolderPath
+                    };
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseModel<string>
+                {
+                    Success = false,
+                    Message = ex.Message,
+                    Data = ex.ToString()
+                };
+            }
+        }
+        public ResponseModel<string> DeleteFingerPrintData(string path)
+        {
+            try
+            {
+                var DirectoryPath = "C:\\BiometricsServer";
+                string FolderPath = Path.Combine(DirectoryPath, "FingerPrints", $"{path}");
+
+                if (Directory.Exists(FolderPath))
+                {
+                    Directory.Delete(FolderPath, recursive: true);
+                    Console.WriteLine($"Deleted FingerPrints folder: {FolderPath}");
+                    return new ResponseModel<string>
+                    {
+                        Success = true,
+                        Message = $"Deleted FingerPrints folder: {FolderPath}",
+                        Data = FolderPath
+                    };
+                }
+                else
+                {
+                    Console.WriteLine($"Folder FingerPrints not found: {FolderPath}");
+                    return new ResponseModel<string>
+                    {
+                        Success = false,
+                        Message = $"Folder FingerPrints not found: {FolderPath}",
+                        Data = FolderPath
+                    };
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseModel<string>
+                {
+                    Success = false,
+                    Message = ex.Message,
+                    Data = ex.ToString()
+                };
             }
         }
     }
