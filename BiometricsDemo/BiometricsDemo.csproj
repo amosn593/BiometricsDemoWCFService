@@ -161,132 +161,63 @@
     <Content Include="FScanners\NdmNitgenNScan\VHMLib.dll" />
     <Content Include="FScanners\NdmNitgen\NBioBSP.dll" />
     <Content Include="FScanners\NdmNitgen\NdmNitgen.dll" />
-    <Content Include="NeurotecDLLs\bioapi20.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\bioapi20_mds.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\concrt140.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\cpprest140_2_9.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\haarcascade_frontalface_default.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\libiomp5md.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\LiveMedia.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\mfc90.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\mfc90u.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\mkl_tiny.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\msvcp100.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\msvcp110.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\msvcp120.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\msvcp140.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\msvcp80.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\msvcp90.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\msvcr100.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\msvcr110.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\msvcr120.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\msvcr80.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\msvcr90.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\NBiometricClient.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\NBiometrics.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\NCore.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\NDevices.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\NdmMedia.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\NdmOnvif.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\NdmVirtual.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\NEIdentificationEngine.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\NFIdentificationEngine.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\Nfiq2.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\Nfiq21.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\NLicensing.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\NLIdentificationEngine.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\NMedia.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\NMediaProc.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\NMMAbisClient.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\vccorlib140.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\vcomp120.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\vcomp140.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\vcruntime140.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NeurotecDLLs\vcruntime140_1.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="NeurotecDLLs\bioapi20.dll" />
+    <Content Include="NeurotecDLLs\bioapi20_mds.dll" />
+    <Content Include="NeurotecDLLs\concrt140.dll" />
+    <Content Include="NeurotecDLLs\cpprest140_2_9.dll" />
+    <Content Include="NeurotecDLLs\haarcascade_frontalface_default.xml" />
+    <Content Include="NeurotecDLLs\libiomp5md.dll" />
+    <Content Include="NeurotecDLLs\LiveMedia.dll" />
+    <Content Include="NeurotecDLLs\mfc90.dll" />
+    <Content Include="NeurotecDLLs\mfc90u.dll" />
+    <Content Include="NeurotecDLLs\mkl_tiny.dll" />
+    <Content Include="NeurotecDLLs\msvcp100.dll" />
+    <Content Include="NeurotecDLLs\msvcp110.dll" />
+    <Content Include="NeurotecDLLs\msvcp120.dll" />
+    <Content Include="NeurotecDLLs\msvcp140.dll" />
+    <Content Include="NeurotecDLLs\msvcp80.dll" />
+    <Content Include="NeurotecDLLs\msvcp90.dll" />
+    <Content Include="NeurotecDLLs\msvcr100.dll" />
+    <Content Include="NeurotecDLLs\msvcr110.dll" />
+    <Content Include="NeurotecDLLs\msvcr120.dll" />
+    <Content Include="NeurotecDLLs\msvcr80.dll" />
+    <Content Include="NeurotecDLLs\msvcr90.dll" />
+    <Content Include="NeurotecDLLs\NBiometricClient.dll" />
+    <Content Include="NeurotecDLLs\NBiometrics.dll" />
+    <Content Include="NeurotecDLLs\NCore.dll" />
+    <Content Include="NeurotecDLLs\NDevices.dll" />
+    <Content Include="NeurotecDLLs\NdmMedia.dll" />
+    <Content Include="NeurotecDLLs\NdmOnvif.dll" />
+    <Content Include="NeurotecDLLs\NdmVirtual.dll" />
+    <Content Include="NeurotecDLLs\NEIdentificationEngine.dll" />
+    <Content Include="NeurotecDLLs\NFIdentificationEngine.dll" />
+    <Content Include="NeurotecDLLs\Nfiq2.dll" />
+    <Content Include="NeurotecDLLs\Nfiq21.dll" />
+    <Content Include="NeurotecDLLs\NLicensing.dll" />
+    <Content Include="NeurotecDLLs\NLIdentificationEngine.dll" />
+    <Content Include="NeurotecDLLs\NMedia.dll" />
+    <Content Include="NeurotecDLLs\NMediaProc.dll" />
+    <Content Include="NeurotecDLLs\NMMAbisClient.dll" />
+    <Content Include="NeurotecDLLs\vccorlib140.dll" />
+    <Content Include="NeurotecDLLs\vcomp120.dll" />
+    <Content Include="NeurotecDLLs\vcomp140.dll" />
+    <Content Include="NeurotecDLLs\vcruntime140.dll" />
+    <Content Include="NeurotecDLLs\vcruntime140_1.dll" />
   </ItemGroup>
+	<ItemGroup>
+		<None Include="NeurotecDLLs\**\*.*">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="Data\**\*.*">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="FScanners\**\*.*">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
