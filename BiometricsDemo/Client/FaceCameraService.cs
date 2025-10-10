@@ -1,4 +1,5 @@
-﻿using BiometricsDemo.Models;
+﻿using BiometricsDemo.Helpers;
+using BiometricsDemo.Models;
 using BiometricsDemo.RequestModels;
 using BiometricsDemo.ResponseModels;
 using DirectShowLib;
@@ -10,8 +11,8 @@ using Neurotec.Biometrics.Client;
 using Neurotec.Licensing;
 using Newtonsoft.Json;
 using System;
-using System.Drawing;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Net.WebSockets;
 using System.Text;
@@ -319,7 +320,7 @@ namespace BiometricsDemo.Client
                 string filePath = Path.Combine(outputDir, $"{faceScanRequest.PensionerCode}_{faceScanRequest.PensionerType}.jpg");
                 string TemplatePath = Path.Combine(outputDir, $"{faceScanRequest.PensionerCode}_{faceScanRequest.PensionerType}.bat");
 
-                const string license = "FaceClient,FaceExtractor";
+                const string license = "FaceClient";
                 //const string license = "FaceClient";
                 //const string license = "FaceFastExtractor";
                 //const string license = "SentiVeillance";
@@ -355,7 +356,7 @@ namespace BiometricsDemo.Client
                     subject.Faces.Add(face);
 
                     //Detect all faces features
-                    bool isAdditionalFunctionalityEnabled = license.Equals("FaceClient") || license.Equals("FaceFastExtractor") || license.Equals("SentiVeillance");
+                    bool isAdditionalFunctionalityEnabled = license.Equals("FaceClient") || license.Equals("FaceExtractor") || license.Equals("SentiVeillance");
                     biometricClient.FacesDetectAllFeaturePoints = isAdditionalFunctionalityEnabled;
 
                     biometricClient.FacesDetectAllFeaturePoints = true;
@@ -404,8 +405,8 @@ namespace BiometricsDemo.Client
             catch (Exception ex)
             {
                 Response.Success = false;
-                Response.Message = "Error: " + ex.Message;
-                Response.ErrorMessage = "Error: " + ex.Message;
+                Response.Message = NeuroticErrorMessage.ExtractNeurotecErrorMessage(ex);
+                Response.ErrorMessage = NeuroticErrorMessage.ExtractNeurotecErrorMessage(ex);
                 return Response;
             }
 

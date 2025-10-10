@@ -11,25 +11,8 @@ namespace BiometricsDemo.APIs
     [ServiceContract]
     public interface IServiceMain
     {
-        [OperationContract]
-        string TestService();
-
-        [OperationContract]
-        [WebInvoke(Method = "POST",
-                UriTemplate = "/addPerson",
-                RequestFormat = WebMessageFormat.Json,
-                ResponseFormat = WebMessageFormat.Json,
-                BodyStyle = WebMessageBodyStyle.Bare)]
-        Person AddPerson(Person person);
-
-        [OperationContract]
-        [WebInvoke(Method = "GET",
-                UriTemplate = "/getPerson",
-                RequestFormat = WebMessageFormat.Json,
-                ResponseFormat = WebMessageFormat.Json,
-                BodyStyle = WebMessageBodyStyle.Bare)]
-        Person GetPerson();
-
+       
+       
         [OperationContract]
         [WebInvoke(Method = "GET",
                 UriTemplate = "/getLicense",

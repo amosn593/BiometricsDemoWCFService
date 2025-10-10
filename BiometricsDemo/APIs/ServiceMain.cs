@@ -15,33 +15,6 @@ namespace BiometricsDemo.APIs
     {
         private static readonly WebSocketManager wsManager = new WebSocketManager();
 
-        public string TestService()
-        {
-            return "Testing Service";
-        }
-
-        public Person AddPerson(Person person)
-        {
-            Console.WriteLine($"Received: Name={person.Name}, Age={person.Age}");
-
-            // Modify before returning
-            person.Name = person.Name.ToUpper();
-            person.Age += 1;
-
-            return person;
-        }
-        public Person GetPerson()
-        {
-            var person = new Person
-            {
-                Name = "John Doe",
-                Age = 30
-            };
-            Console.WriteLine($"Returned: Name={person.Name}, Age={person.Age}");
-
-
-            return person;
-        }
         public async Task<FaceScanResponse> FaceCapture(FaceScanRequest faceScanRequest)
         {
             try
@@ -151,7 +124,6 @@ namespace BiometricsDemo.APIs
                 };
             }
         }
-
         public async Task<SaveFaceModel> SaveFaceFrame(SaveFaceModel saveFaceModel)
         {
             try
@@ -189,7 +161,6 @@ namespace BiometricsDemo.APIs
                 };
             }
         }
-
         public string GetLicense()
         {
             try
@@ -201,7 +172,7 @@ namespace BiometricsDemo.APIs
                     Console.WriteLine("Trial mode: " + NLicenseManager.TrialMode);
                 }
 
-                const string license = "FingerClient,FingerMatcher";
+                const string license = "FingerClient,FingerMatcher,FaceClient,FaceMatcher";
 
                 if (!NLicense.Obtain("/local", 5000, license))
                 {
@@ -216,7 +187,6 @@ namespace BiometricsDemo.APIs
                 return $"Could not obtain license: {ex.Message}";
             }
         }
-
         public List<CameraListResponseModel> getCameraList()
         {
             try
