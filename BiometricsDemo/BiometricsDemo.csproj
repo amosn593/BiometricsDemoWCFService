@@ -218,10 +218,12 @@
   <ItemGroup>
     <Content Include="Activation\**\*.*" CopyToOutputDirectory="Always" />
   </ItemGroup>
+  <ItemGroup>
   <None Include="NeuroticDLLs\**\*.*">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
   </None>
+</ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Emgu.CV.runtime.windows.4.4.0.4061\build\Emgu.CV.runtime.windows.targets" Condition="Exists('..\packages\Emgu.CV.runtime.windows.4.4.0.4061\build\Emgu.CV.runtime.windows.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
