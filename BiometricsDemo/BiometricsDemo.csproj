@@ -33,6 +33,46 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Neurotec, Version=2025.1.0.0, Culture=neutral, PublicKeyToken=ea4ecf06177ea613, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DotNetDLLs\Neurotec.dll</HintPath>
+    </Reference>
+    <Reference Include="Neurotec.Accelerator.Admin.Rest, Version=2025.1.0.0, Culture=neutral, PublicKeyToken=ea4ecf06177ea613, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DotNetDLLs\Neurotec.Accelerator.Admin.Rest.dll</HintPath>
+    </Reference>
+    <Reference Include="Neurotec.Biometrics, Version=2025.1.0.0, Culture=neutral, PublicKeyToken=ea4ecf06177ea613, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DotNetDLLs\Neurotec.Biometrics.dll</HintPath>
+    </Reference>
+    <Reference Include="Neurotec.Biometrics.Client, Version=2025.1.0.0, Culture=neutral, PublicKeyToken=ea4ecf06177ea613, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DotNetDLLs\Neurotec.Biometrics.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Neurotec.Biometrics.Gui, Version=2025.1.0.0, Culture=neutral, PublicKeyToken=ea4ecf06177ea613, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DotNetDLLs\Neurotec.Biometrics.Gui.dll</HintPath>
+    </Reference>
+    <Reference Include="Neurotec.Devices, Version=2025.1.0.0, Culture=neutral, PublicKeyToken=ea4ecf06177ea613, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DotNetDLLs\Neurotec.Devices.dll</HintPath>
+    </Reference>
+    <Reference Include="Neurotec.Gui, Version=2025.1.0.0, Culture=neutral, PublicKeyToken=ea4ecf06177ea613, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DotNetDLLs\Neurotec.Gui.dll</HintPath>
+    </Reference>
+    <Reference Include="Neurotec.Licensing, Version=2025.1.0.0, Culture=neutral, PublicKeyToken=ea4ecf06177ea613, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DotNetDLLs\Neurotec.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="Neurotec.Media, Version=2025.1.0.0, Culture=neutral, PublicKeyToken=ea4ecf06177ea613, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DotNetDLLs\Neurotec.Media.dll</HintPath>
+    </Reference>
+    <Reference Include="Neurotec.Media.Processing, Version=2025.1.0.0, Culture=neutral, PublicKeyToken=ea4ecf06177ea613, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DotNetDLLs\Neurotec.Media.Processing.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -56,19 +96,197 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CorsSettings\CorsBehavior.cs" />
+    <Compile Include="CorsSettings\CorsMessageInspector.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Data\FacesAssessAge.ndf" />
+    <None Include="Data\FacesAssessAttributes.ndf" />
+    <None Include="Data\FacesAssessLiveness.ndf" />
+    <None Include="Data\FacesAssessMorphs.ndf" />
+    <None Include="Data\FacesCreateTemplateLarge.ndf" />
+    <None Include="Data\FacesCreateTemplateMedium.ndf" />
+    <None Include="Data\FacesCreateTemplateMediumLite.ndf" />
+    <None Include="Data\FacesCreateTemplateMMOC.ndf" />
+    <None Include="Data\FacesCreateTemplateSmall.ndf" />
+    <None Include="Data\FacesDetectEmbedded.ndf" />
+    <None Include="Data\FacesDetectLarge.ndf" />
+    <None Include="Data\FacesDetectMedium.ndf" />
+    <None Include="Data\FacesDetectSegmentsFeaturePointsDetect.ndf" />
+    <None Include="Data\FacesDetectSegmentsFeaturePointsTrack.ndf" />
+    <None Include="Data\FacesDetectSegmentsOrientation.ndf" />
+    <None Include="Data\FacesDetectVerify.ndf" />
+    <None Include="Data\FacesEnhancement.ndf" />
+    <None Include="Data\FacesMigration.ndf" />
+    <None Include="Data\FacesSegment.ndf" />
+    <None Include="Data\FacesSketchToPhoto.ndf" />
+    <None Include="Data\Fingers.ndf" />
+    <None Include="Data\FingersMatching.ndf" />
+    <None Include="Data\Irises.ndf" />
+    <None Include="Data\Palms.ndf" />
+    <None Include="Data\Tattoos.ndf" />
+    <None Include="Data\Voices.ndf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="APIs\" />
-    <Folder Include="CorsSettings\" />
-    <Folder Include="Data\" />
-    <Folder Include="DotNetDLLs\" />
-    <Folder Include="FScanners\" />
-    <Folder Include="NeurotecDLLs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DotNetDLLs\Neurotec.Accelerator.Admin.Rest.dll" />
+    <Content Include="DotNetDLLs\Neurotec.Accelerator.Admin.Rest.xml" />
+    <Content Include="DotNetDLLs\Neurotec.Biometrics.Client.dll" />
+    <Content Include="DotNetDLLs\Neurotec.Biometrics.Client.xml" />
+    <Content Include="DotNetDLLs\Neurotec.Biometrics.dll" />
+    <Content Include="DotNetDLLs\Neurotec.Biometrics.Gui.dll" />
+    <Content Include="DotNetDLLs\Neurotec.Biometrics.Gui.xml" />
+    <Content Include="DotNetDLLs\Neurotec.Biometrics.xml" />
+    <Content Include="DotNetDLLs\Neurotec.Devices.dll" />
+    <Content Include="DotNetDLLs\Neurotec.Devices.xml" />
+    <Content Include="DotNetDLLs\Neurotec.dll" />
+    <Content Include="DotNetDLLs\Neurotec.Gui.dll" />
+    <Content Include="DotNetDLLs\Neurotec.Gui.xml" />
+    <Content Include="DotNetDLLs\Neurotec.Licensing.dll" />
+    <Content Include="DotNetDLLs\Neurotec.Licensing.xml" />
+    <Content Include="DotNetDLLs\Neurotec.Media.dll" />
+    <Content Include="DotNetDLLs\Neurotec.Media.Processing.dll" />
+    <Content Include="DotNetDLLs\Neurotec.Media.Processing.xml" />
+    <Content Include="DotNetDLLs\Neurotec.Media.xml" />
+    <Content Include="DotNetDLLs\Neurotec.xml" />
+    <Content Include="FScanners\NdmNitgenNBioScan\NBioScan.dll" />
+    <Content Include="FScanners\NdmNitgenNBioScan\NdmNitgenNBioScan.dll" />
+    <Content Include="FScanners\NdmNitgenNScan\NdmNitgenNScan.dll" />
+    <Content Include="FScanners\NdmNitgenNScan\SCAN_FINGERPRINT.dll" />
+    <Content Include="FScanners\NdmNitgenNScan\VHMLib.dll" />
+    <Content Include="FScanners\NdmNitgen\NBioBSP.dll" />
+    <Content Include="FScanners\NdmNitgen\NdmNitgen.dll" />
+    <Content Include="NeurotecDLLs\bioapi20.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\bioapi20_mds.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\concrt140.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\cpprest140_2_9.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\haarcascade_frontalface_default.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\libiomp5md.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\LiveMedia.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\mfc90.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\mfc90u.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\mkl_tiny.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\msvcp100.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\msvcp110.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\msvcp120.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\msvcp140.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\msvcp80.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\msvcp90.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\msvcr100.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\msvcr110.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\msvcr120.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\msvcr80.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\msvcr90.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\NBiometricClient.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\NBiometrics.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\NCore.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\NDevices.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\NdmMedia.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\NdmOnvif.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\NdmVirtual.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\NEIdentificationEngine.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\NFIdentificationEngine.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\Nfiq2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\Nfiq21.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\NLicensing.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\NLIdentificationEngine.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\NMedia.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\NMediaProc.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\NMMAbisClient.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\vccorlib140.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\vcomp120.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\vcomp140.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\vcruntime140.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NeurotecDLLs\vcruntime140_1.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
