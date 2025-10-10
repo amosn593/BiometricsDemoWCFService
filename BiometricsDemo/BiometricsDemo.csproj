@@ -155,5 +155,14 @@
     <Content Include="DotNetDLLs\Neurotec.Media.xml" />
     <Content Include="DotNetDLLs\Neurotec.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\**\*.*" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FScanners\**\*.*" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Activation\**\*.*" CopyToOutputDirectory="Always" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
