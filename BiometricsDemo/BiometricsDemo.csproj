@@ -164,5 +164,8 @@
   <ItemGroup>
     <Content Include="Activation\**\*.*" CopyToOutputDirectory="Always" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="NeuroticDLLs\**\*.*" CopyToOutputDirectory="PreserveNewest" Link="%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
