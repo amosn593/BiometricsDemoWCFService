@@ -135,10 +135,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIs\IServiceMain.cs" />
+    <Compile Include="APIs\ServiceMain.cs" />
+    <Compile Include="Client\DisposibleFingerPrintScannerService.cs" />
+    <Compile Include="Client\FaceCameraService.cs" />
+    <Compile Include="Client\FingerPrintScanService.cs" />
+    <Compile Include="Client\FingerPrintVerifyService.cs" />
     <Compile Include="CorsSettings\CorsBehavior.cs" />
     <Compile Include="CorsSettings\CorsMessageInspector.cs" />
+    <Compile Include="Enums\Biometric.cs" />
+    <Compile Include="Enums\PensionerTypes.cs" />
+    <Compile Include="Helpers\NeuroticErrorMessage.cs" />
+    <Compile Include="Models\BiometricData.cs" />
+    <Compile Include="Models\ResponseModel.cs" />
+    <Compile Include="Models\SocketEvents.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestModels\BiometricsRequest.cs" />
+    <Compile Include="RequestModels\FaceScanRequest.cs" />
+    <Compile Include="RequestModels\FingerPrintVerifyRequest.cs" />
+    <Compile Include="RequestModels\SaveFaceModel.cs" />
+    <Compile Include="RequestModels\ServerTemplateUpdateModel.cs" />
+    <Compile Include="RequestModels\VerifyServerRequest.cs" />
+    <Compile Include="ResponseModels\BiometricsResponse.cs" />
+    <Compile Include="ResponseModels\CameraListResponseModel.cs" />
+    <Compile Include="ResponseModels\FaceScanResponse.cs" />
+    <Compile Include="ResponseModels\FaceStreamResponseModel.cs" />
+    <Compile Include="ResponseModels\FingerPrintVerifyResponse.cs" />
+    <Compile Include="ResponseModels\ServerRequestResponse.cs" />
+    <Compile Include="ResponseModels\ServerTemplateUpdateResponseModel.cs" />
+    <Compile Include="Server\ServerFaceFrameService.cs" />
+    <Compile Include="Server\ServerFingerPrintVerifyService.cs" />
+    <Compile Include="Server\ServerTemplateUpdate.cs" />
+    <Compile Include="WcfWindowsService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebSocketManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -170,9 +202,7 @@
     <None Include="Data\Voices.ndf" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="APIs\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="DotNetDLLs\Neurotec.Accelerator.Admin.Rest.dll" />
     <Content Include="DotNetDLLs\Neurotec.Accelerator.Admin.Rest.xml" />
