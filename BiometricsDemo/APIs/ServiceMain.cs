@@ -225,7 +225,7 @@ namespace BiometricsDemo.APIs
                     Console.WriteLine($"Folder FaceFrames not found: {FolderPath}");
                     return new ResponseModel<string>
                     {
-                        Success = false,
+                        Success = true,
                         Message = $"Folder FaceFrames not found: {FolderPath}",
                         Data = FolderPath
                     };
@@ -265,7 +265,7 @@ namespace BiometricsDemo.APIs
                     Console.WriteLine($"Folder FingerPrints not found: {FolderPath}");
                     return new ResponseModel<string>
                     {
-                        Success = false,
+                        Success = true,
                         Message = $"Folder FingerPrints not found: {FolderPath}",
                         Data = FolderPath
                     };

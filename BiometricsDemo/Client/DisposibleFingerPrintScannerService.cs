@@ -190,6 +190,7 @@ namespace BiometricsDemo.Client
                     // if websocket closes → cancel biometric client
                     using (cancellationToken.Register(() => _biometricClient.Cancel()))
                     {
+                        
                         var status = await performTask;
 
                         cancellationToken.ThrowIfCancellationRequested();

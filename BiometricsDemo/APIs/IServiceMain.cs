@@ -22,17 +22,17 @@ namespace BiometricsDemo.APIs
         string GetLicense();
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
-                UriTemplate = "/deleteFaceFrameData",
-                RequestFormat = WebMessageFormat.Json,
+        [WebGet(
+                UriTemplate = "/deleteFaceFrameData?path={path}",
+                //RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json,
                 BodyStyle = WebMessageBodyStyle.Bare)]
         ResponseModel<string> DeleteFaceFrameData(string path);
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
-                UriTemplate = "/deleteFingerPrintData",
-                RequestFormat = WebMessageFormat.Json,
+        [WebGet(
+                UriTemplate = "/deleteFingerPrintData?path={path}",
+                //RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json,
                 BodyStyle = WebMessageBodyStyle.Bare)]
         ResponseModel<string> DeleteFingerPrintData(string path);
