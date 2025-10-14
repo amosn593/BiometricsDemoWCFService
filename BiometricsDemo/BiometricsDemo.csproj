@@ -237,8 +237,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\**\*.*" CopyToOutputDirectory="Always" />
-    <Content Include="NeuroticDLLs\haarcascade_frontalface_default.xml" />
   </ItemGroup>
+  <ItemGroup>
+  <None Include="FaceQuality\**\*.*">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+  </None>
+</ItemGroup>
   <ItemGroup>
     <Content Include="FScanners\**\*.*" CopyToOutputDirectory="Always" />
   </ItemGroup>

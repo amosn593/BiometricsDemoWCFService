@@ -1,4 +1,5 @@
-﻿using BiometricsDemo.Helpers;
+﻿using BiometricsDemo.Enums;
+using BiometricsDemo.Helpers;
 using BiometricsDemo.Models;
 using BiometricsDemo.RequestModels;
 using BiometricsDemo.ResponseModels;
@@ -8,6 +9,7 @@ using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Neurotec.Biometrics;
 using Neurotec.Biometrics.Client;
+using Neurotec.IO;
 using Neurotec.Licensing;
 using Newtonsoft.Json;
 using System;
@@ -77,7 +79,19 @@ namespace BiometricsDemo.Client
             {
                 _currentSocket = socket;
                 _stopStreaming = false;
-                
+
+
+                if (string.IsNullOrWhiteSpace(faceScanRequest.PensionerCode) || faceScanRequest.PensionerType <= 0)
+                {
+                    var socketEventResultsError1 = new SocketEvents<string>
+                    {
+                        eventName = "faceScan",
+                        data = "Invalid Details provided -{PensionerCode, PensionerType}" // ResponseError
+                    };
+
+                    return socketEventResultsError1;
+                }
+
                 var cameraIndex = GetSelectedCameraIndex(faceScanRequest.CameraName);
 
                 Console.WriteLine($"Using camera index: {cameraIndex}");
@@ -269,7 +283,15 @@ namespace BiometricsDemo.Client
                 string filePath = Path.Combine(outputDir, $"{faceScanRequest.PensionerCode}_{faceScanRequest.PensionerType}.jpg");
                 string TemplatePath = Path.Combine(outputDir, $"{faceScanRequest.PensionerCode}_{faceScanRequest.PensionerType}.bat");
 
-                // Validate the last frame has a single high-quality face
+                //if (!Directory.Exists(filePath))
+                //{
+                //    Response.Success = false;
+                //    Response.Message = "No face image found.";
+                //    Response.ErrorMessage = "No face image found.";
+                //    return Response;
+                //}
+
+                    // Validate the last frame has a single high-quality face
                 Console.WriteLine("Validating captured frame for a single high-quality face...");
                 Console.WriteLine($"Frame path: {filePath}");
                 var isValidFace = DetectSingleHighQualityFace(filePath);
@@ -277,7 +299,8 @@ namespace BiometricsDemo.Client
                 if (isValidFace == false)
                 {
                     Response.Success = false;
-                    Response.Message = "No face or multiple faces detected";
+                    Response.Message = "No face or multiple faces detected. Please ensure only one face is in the frame and try again.";
+                    Response.ErrorMessage = "No face or multiple faces detected. Please ensure only one face is in the frame and try again.";
                     return Response;
                 }
 
@@ -443,16 +466,7 @@ namespace BiometricsDemo.Client
                     if (faces.Length == 1)
                     {
                         return true;
-                        //Rectangle faceRect = faces[0];
-
-                        //// Extract the face region
-                        //var faceRegion = new Image<Bgr, byte>(image.Bitmap).GetSubRect(faceRect);
-
-                        //// Optional: resize the face to a standard high-quality size
-                        //var resizedFace = faceRegion.Resize(256, 256, Emgu.CV.CvEnum.Inter.Linear);
-
-                        //// Return cropped face as a Bitmap
-                        //return resizedFace.ToBitmap();
+                       
                     }
 
                     // No face or multiple faces detected
