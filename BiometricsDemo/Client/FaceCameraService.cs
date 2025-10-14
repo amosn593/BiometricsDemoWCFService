@@ -283,15 +283,7 @@ namespace BiometricsDemo.Client
                 string filePath = Path.Combine(outputDir, $"{faceScanRequest.PensionerCode}_{faceScanRequest.PensionerType}.jpg");
                 string TemplatePath = Path.Combine(outputDir, $"{faceScanRequest.PensionerCode}_{faceScanRequest.PensionerType}.bat");
 
-                //if (!Directory.Exists(filePath))
-                //{
-                //    Response.Success = false;
-                //    Response.Message = "No face image found.";
-                //    Response.ErrorMessage = "No face image found.";
-                //    return Response;
-                //}
-
-                    // Validate the last frame has a single high-quality face
+              
                 Console.WriteLine("Validating captured frame for a single high-quality face...");
                 Console.WriteLine($"Frame path: {filePath}");
                 var isValidFace = DetectSingleHighQualityFace(filePath);
