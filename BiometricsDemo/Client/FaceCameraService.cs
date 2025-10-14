@@ -270,6 +270,8 @@ namespace BiometricsDemo.Client
                 string TemplatePath = Path.Combine(outputDir, $"{faceScanRequest.PensionerCode}_{faceScanRequest.PensionerType}.bat");
 
                 // Validate the last frame has a single high-quality face
+                Console.WriteLine("Validating captured frame for a single high-quality face...");
+                Console.WriteLine($"Frame path: {filePath}");
                 var isValidFace = DetectSingleHighQualityFace(filePath);
 
                 if (isValidFace == false)

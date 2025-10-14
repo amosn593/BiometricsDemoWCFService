@@ -101,6 +101,8 @@ namespace BiometricsDemo.Server
                
                 var myTemplatefilename = Path.Combine(FolderPath, $"{saveFaceModel.Imagepath}");
 
+                Console.WriteLine($"Template Path: {myTemplatefilename}");
+
                 if (!File.Exists(myTemplatefilename))
                 {
                     Console.WriteLine("No FaceFrame Template Found at Biometrics Service");

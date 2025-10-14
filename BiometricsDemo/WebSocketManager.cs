@@ -213,7 +213,7 @@ namespace BiometricsDemo
 
                         await SendResponse(socket, "scanFinger", scanResult);
 
-                        
+
                         //var scanService1 = new FingerPrintScanService();
                         //var scanRequest = JsonConvert.DeserializeObject<BiometricsRequest>(receiveModel.data.ToString());
                         //var scanResult = await scanService1.FingerPrintScanner(scanRequest);
@@ -222,16 +222,17 @@ namespace BiometricsDemo
                         break;
 
                     case "fingerVerify":
+                        var verifyRequest = JsonConvert.DeserializeObject<FingerPrintVerifyRequest>(receiveModel.data.ToString());
+                        var verifyResult = await scanService.VerifyFingerPrint(verifyRequest, cancellationToken);
+
+                        await SendResponse(socket, "fingerVerify", verifyResult);
+
+                        //var verifyService = new FingerPrintVerifyService();
                         //var verifyRequest = JsonConvert.DeserializeObject<FingerPrintVerifyRequest>(receiveModel.data.ToString());
-                        //var verifyResult = await scanService.VerifyFingerPrint(verifyRequest, cancellationToken);
+                        //var verifyResult = await verifyService.VerifyFingerPrint(verifyRequest);
 
                         //await SendResponse(socket, "fingerVerify", verifyResult);
 
-                        var verifyService = new FingerPrintVerifyService();
-                        var verifyRequest = JsonConvert.DeserializeObject<FingerPrintVerifyRequest>(receiveModel.data.ToString());
-                        var verifyResult = await verifyService.VerifyFingerPrint(verifyRequest);
-
-                        await SendResponse(socket, "fingerVerify", verifyResult);
                         break;
 
                     case "faceScan":

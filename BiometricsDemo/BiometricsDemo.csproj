@@ -243,12 +243,183 @@
     <Content Include="FScanners\**\*.*" CopyToOutputDirectory="Always" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="InferenceEngines\**\*.*" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Activation\**\*.*" CopyToOutputDirectory="Always" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="NeuroticDLLs\**\*.*">
+    <None Include="NeuroticDLLs\bioapi20.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+      <TargetPath>bioapi20.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\bioapi20_mds.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>bioapi20_mds.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\concrt140.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>concrt140.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\cpprest140_2_9.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>cpprest140_2_9.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\libiomp5md.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>libiomp5md.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\LiveMedia.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>LiveMedia.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\mfc90.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>mfc90.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\mfc90u.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>mfc90u.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\mkl_tiny.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>mkl_tiny.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\msvcp100.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>msvcp100.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\msvcp110.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>msvcp110.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\msvcp120.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>msvcp120.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\msvcp140.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>msvcp140.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\msvcp80.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>msvcp80.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\msvcp90.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>msvcp90.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\msvcr100.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>msvcr100.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\msvcr110.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>msvcr110.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\msvcr120.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>msvcr120.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\msvcr80.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>msvcr80.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\msvcr90.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>msvcr90.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\NBiometricClient.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>NBiometricClient.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\NBiometrics.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>NBiometrics.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\NCore.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>NCore.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\NDevices.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>NDevices.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\NdmMedia.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>NdmMedia.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\NdmMedia.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>NdmMedia.ini</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\NdmOnvif.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>NdmOnvif.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\NdmOnvif.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>NdmOnvif.ini</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\NdmVirtual.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>NdmVirtual.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\NEIdentificationEngine.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>NEIdentificationEngine.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\NFIdentificationEngine.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>NFIdentificationEngine.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\Nfiq2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>Nfiq2.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\Nfiq21.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>Nfiq21.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\NLicensing.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>NLicensing.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\NLIdentificationEngine.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>NLIdentificationEngine.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\NMedia.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>NMedia.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\NMediaProc.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>NMediaProc.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\NMMAbisClient.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>NMMAbisClient.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\vccorlib140.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>vccorlib140.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\vcomp120.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>vcomp120.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\vcomp140.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>vcomp140.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\vcruntime140.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>vcruntime140.dll</TargetPath>
+    </None>
+    <None Include="NeuroticDLLs\vcruntime140_1.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>vcruntime140_1.dll</TargetPath>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
