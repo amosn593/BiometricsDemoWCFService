@@ -107,7 +107,14 @@ namespace BiometricsDemo
                 endpoint.EndpointBehaviors.Add(new WebHttpBehavior { HelpEnabled = true });
                 endpoint.EndpointBehaviors.Add(new CorsBehavior());
 
+                
                 _host.Open();
+
+                Console.WriteLine(" BioMetrics Service running at : " + _baseUri);
+                foreach (var ep in _host.Description.Endpoints)
+                {
+                    Console.WriteLine($"   -> Endpoint: {ep.Address.Uri} ({ep.Binding.Name})");
+                }
             }
             catch (AddressAccessDeniedException ex)
             {
