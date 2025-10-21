@@ -16,6 +16,17 @@ namespace BiometricsDemo.APIs
     {
         private static readonly WebSocketManager wsManager = new WebSocketManager();
 
+        public string Test()
+        {
+            try
+            {
+                return $"WCF Service is running";
+            }
+            catch (Exception ex)
+            {
+                return $"Error: {ex.Message}";
+            }
+        }
         public async Task<FaceScanResponse> FaceCapture(FaceScanRequest faceScanRequest)
         {
             try
