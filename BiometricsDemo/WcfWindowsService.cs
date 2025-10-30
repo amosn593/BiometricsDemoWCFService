@@ -110,7 +110,7 @@ namespace BiometricsDemo
                 
                 _host.Open();
 
-                Console.WriteLine(" BioMetrics Service running at : " + _baseUri);
+                Console.WriteLine(" BioMetrics Service is Running ");
                 foreach (var ep in _host.Description.Endpoints)
                 {
                     Console.WriteLine($"   -> Endpoint: {ep.Address.Uri} ({ep.Binding.Name})");
