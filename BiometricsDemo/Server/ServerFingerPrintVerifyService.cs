@@ -47,8 +47,8 @@ namespace BiometricsDemo.Server
 
                 if (NLicenseManager.TrialMode == false)
                 {
-                    //NLicense.Release(license);
-                    NLicenseManager.TrialMode = true;// GetTrialModeFlag();
+                    NLicense.Release(license);
+                    //NLicenseManager.TrialMode = true;// GetTrialModeFlag();
                     Console.WriteLine("Trial mode: " + NLicenseManager.TrialMode);
                 }
 

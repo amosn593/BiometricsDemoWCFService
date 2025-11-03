@@ -40,14 +40,16 @@ namespace BiometricsDemo.Client
                     return Response;
                 }
 
+                const string license = "FingerClient";
+
                 if (NLicenseManager.TrialMode == false)
                 {
-                    //NLicense.Release(license);
-                    NLicenseManager.TrialMode = true;// GetTrialModeFlag();
+                    NLicense.Release(license);
+                    //NLicenseManager.TrialMode = true;// GetTrialModeFlag();
                     Console.WriteLine("Trial mode: " + NLicenseManager.TrialMode);
                 }
 
-                const string license = "FingerClient";
+                
 
                 if (!NLicense.Obtain("/local", 5000, license))
                 {

@@ -71,17 +71,12 @@ namespace BiometricsDemo.Server
                     return Response;
                 }
 
-                //const string license = "FaceMatcher";
-                //const string license = "FaceClient";
-                //const string license = "FaceFastExtractor";
-                //const string license = "SentiVeillance";
-
                 const string license = "FaceClient,FaceMatcher";
 
                 if (NLicenseManager.TrialMode == false)
                 {
-                    //NLicense.Release(license);
-                    NLicenseManager.TrialMode = true;// GetTrialModeFlag();
+                    NLicense.Release(license);
+                    //NLicenseManager.TrialMode = true;// GetTrialModeFlag();
                     Console.WriteLine("Trial mode: " + NLicenseManager.TrialMode);
                 }
 

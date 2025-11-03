@@ -72,12 +72,12 @@ namespace BiometricsDemo.Client
 
                 
 
-                const string license = "FingerClient,FingerExtractor";
+                const string license = "FingerClient";
 
                 if (NLicenseManager.TrialMode == false)
                 {
-                    //NLicense.Release(license);
-                    NLicenseManager.TrialMode = true;// GetTrialModeFlag();
+                    NLicense.Release(license);
+                    //NLicenseManager.TrialMode = true;// GetTrialModeFlag();
                     Console.WriteLine("Trial mode: " + NLicenseManager.TrialMode);
                 }
 
@@ -379,12 +379,12 @@ namespace BiometricsDemo.Client
 
 
 
-                const string license = "FingerClient,FingerExtractor";
+                const string license = "FingerClient";
 
                 if (NLicenseManager.TrialMode == false)
                 {
-                    //NLicense.Release(license);
-                    NLicenseManager.TrialMode = true;// GetTrialModeFlag();
+                    NLicense.Release(license);
+                    //NLicenseManager.TrialMode = true;// GetTrialModeFlag();
                     Console.WriteLine("Trial mode: " + NLicenseManager.TrialMode);
                 }
 
