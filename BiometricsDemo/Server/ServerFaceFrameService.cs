@@ -71,7 +71,7 @@ namespace BiometricsDemo.Server
                     return Response;
                 }
 
-                const string license = "FaceClient,FaceMatcher";
+                const string license = "FaceExtractor,FaceMatcher";
 
                 if (NLicenseManager.TrialMode == false)
                 {
