@@ -239,11 +239,11 @@
     <Content Include="Data\**\*.*" CopyToOutputDirectory="Always" />
   </ItemGroup>
   <ItemGroup>
-  <None Include="FaceQuality\**\*.*">
-    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
-  </None>
-</ItemGroup>
+    <None Include="FaceQuality\**\*.*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="FScanners\**\*.*" CopyToOutputDirectory="Always" />
   </ItemGroup>
