@@ -72,7 +72,7 @@ namespace BiometricsDemo.Client
 
                 
 
-                const string license = "FingerClient,FingerExtractor";
+                const string license = "FingerClient";
 
                 if (NLicenseManager.TrialMode == false)
                 {
