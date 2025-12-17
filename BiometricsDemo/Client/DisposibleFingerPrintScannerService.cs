@@ -476,7 +476,7 @@ namespace BiometricsDemo.Client
                         //Prepare Verify Server Request
                         var Payload = new VerifyServerRequest
                         {
-
+                            ImageBase64 = string.Empty,
                             TemplateBase64 = Convert.ToBase64String(subject.GetTemplateBuffer().ToArray()), //$"{Content_Type}{Convert.ToBase64String(TemplatesBase64)}",
                             TemplateFilePath = $"{request.PensionerCode}_{request.PensionerType}.bat",
                             Success = true,
