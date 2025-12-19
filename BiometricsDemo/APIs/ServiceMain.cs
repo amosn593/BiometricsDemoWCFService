@@ -177,14 +177,14 @@ namespace BiometricsDemo.APIs
         {
             try
             {
+                const string license = "FingerClient,FingerMatcher,FaceExtractor,FaceMatcher";
+
                 if (NLicenseManager.TrialMode == false)
                 {
-                    //NLicense.Release(license);
-                    NLicenseManager.TrialMode = true;// GetTrialModeFlag();
+                    NLicense.Release(license);
+                    //NLicenseManager.TrialMode = true;// GetTrialModeFlag();
                     Console.WriteLine("Trial mode: " + NLicenseManager.TrialMode);
                 }
-
-                const string license = "FingerClient,FingerMatcher,FaceExtractor,FaceMatcher";
 
                 if (!NLicense.Obtain("/local", 5000, license))
                 {

@@ -4,6 +4,7 @@ using BiometricsDemo.RequestModels;
 using BiometricsDemo.ResponseModels;
 using Neurotec.Biometrics;
 using Neurotec.Biometrics.Client;
+using Neurotec.Images;
 using Neurotec.IO;
 using Neurotec.Licensing;
 using Newtonsoft.Json;
@@ -89,7 +90,20 @@ namespace BiometricsDemo.Server
 
 
                     // Create a temmplate from the base64string
-                    NSubject SubjectFromBase64 = SubjectFromTemplateBase64(verifyServerRequest.TemplateBase64);
+                    NSubject SubjectFromBase64 = null;
+
+                    //Check if Template or Imagebase64 submitted
+                    if(string.IsNullOrWhiteSpace(verifyServerRequest.TemplateBase64) && !string.IsNullOrWhiteSpace(verifyServerRequest.ImageBase64))
+                    {
+                        // Create template from image base64
+                        
+                        SubjectFromBase64 = CreateSubjectFromImageBase64(verifyServerRequest.ImageBase64, "imagebase64");
+                        
+                    }
+                    else
+                    {
+                        SubjectFromBase64 = SubjectFromTemplateBase64(verifyServerRequest.TemplateBase64);
+                    }
 
                     
                     if (SubjectFromBase64 is null || SubjectFromSavedTemplate is null)
@@ -160,5 +174,30 @@ namespace BiometricsDemo.Server
             return subject;
 
         }
+
+        private NSubject CreateSubjectFromImageBase64(string base64Image, string id)
+        {
+            // Step 1: Decode Base64 string to byte array
+          
+            byte[] imageBytes = Convert.FromBase64String(base64Image);
+
+            // Step 2: Load image from byte array
+            
+            using (var ms = new MemoryStream(imageBytes))
+            using (var nstream = NStream.FromStream(ms)) //wrap MemoryStream
+            using (var image = NImage.FromStream(nstream))
+            {
+                NFinger finger = new NFinger();
+                finger.Image = image;
+
+                NSubject subject = new NSubject();
+                subject.Fingers.Add(finger);
+
+                return subject;
+            }
+
+            
+        }
+
     }
 }
