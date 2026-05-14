@@ -8,8 +8,11 @@ using Neurotec.Devices;
 using Neurotec.Images;
 using Neurotec.IO;
 using Neurotec.Licensing;
+using NITGEN.SDK.NBioBSP;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -500,7 +503,149 @@ namespace BiometricsDemo.Client
             }
         }
 
-        
+        public VerifyServerRequest VerifyFingerPrintOneFingerScanner(FingerPrintVerifyRequest request)
+        {
+            //CaptureFinger();
+
+            var Response = new VerifyServerRequest();
+            var ContentType = "data:image/jpg;base64,";
+            var FullImageScan = string.Empty;
+            var DirectoryPath = "C:\\BiometricsService";
+            string FolderPath = Path.Combine(DirectoryPath, "Verification_FingerPrints", $"{request.PensionerCode}_{request.PensionerType}");
+            Directory.CreateDirectory(FolderPath); // Create folder if missing  
+            var RawDataPath = Path.Combine(FolderPath, $"{request.PensionerCode}_{request.PensionerType}.raw");
+            var BmpDataPath = Path.Combine(FolderPath, $"{request.PensionerCode}_{request.PensionerType}.bmp");
+            var JpgDataPath = Path.Combine(FolderPath, $"{request.PensionerCode}_{request.PensionerType}.jpg");
+            try
+            {
+                if (String.IsNullOrWhiteSpace(request.PensionerCode) || (Biometric)request.Mode != Biometric.Fingerprint
+                    || request.PensionerType <= 0)
+                {
+                    Response.Success = false;
+                    Response.ErrorMsg = "Invalid PensionerCode or Biometric!!!";
+                    Response.Message = "Please provide valid PensionerCode Or PensionerType and select Fingerprint as Biometric.";
+                    return Response;
+                }
+
+                NBioAPI m_NBioAPI;
+                NBioAPI.Export m_Export;
+
+                short m_OpenedDeviceID;
+                NBioAPI.Type.HFIR m_hNewFIR;
+                NBioAPI.Type.DEVICE_INFO_EX[] m_DeviceInfoEx;
+
+                m_NBioAPI = new NBioAPI();
+                m_Export = new NBioAPI.Export(m_NBioAPI);
+
+                m_OpenedDeviceID = NBioAPI.Type.DEVICE_ID.NONE;
+                m_hNewFIR = null;
+
+                NBioAPI.Type.WINDOW_OPTION WinOption;
+                NBioAPI.Type.HFIR hAudit;
+
+                WinOption = new NBioAPI.Type.WINDOW_OPTION();
+                hAudit = new NBioAPI.Type.HFIR();
+
+                WinOption.WindowStyle = NBioAPI.Type.WINDOW_STYLE.INVISIBLE;
+
+                if (m_hNewFIR != null)
+                {
+                    // Free native memory
+                    m_hNewFIR.Dispose();
+                    m_hNewFIR = null;
+                }
+
+                // Open device
+                short iDeviceID = NBioAPI.Type.DEVICE_ID.AUTO;
+                uint ret1 = m_NBioAPI.OpenDevice(iDeviceID);
+                if (ret1 != NBioAPI.Error.NONE)
+                {
+                    Console.WriteLine($"Open Device Failed! - {ret1}");
+                    Response.Success = false;
+                    Response.ErrorMsg = $"Open Device Failed! - {ret1}";
+                    Response.Message = $"Open Device Failed! - {ret1}";
+                    return Response;
+                }
+
+                uint ret = m_NBioAPI.Capture(NBioAPI.Type.FIR_PURPOSE.AUDIT, out m_hNewFIR, NBioAPI.Type.TIMEOUT.INFINITE, hAudit, WinOption);
+
+                if (ret == NBioAPI.Error.NONE)
+                {
+                    // If you want to save fir data then this FIR data write to DB or File.
+                    NBioAPI.Export.EXPORT_AUDIT_DATA exportData;
+
+                    ret = m_Export.NBioBSPToImage(hAudit, out exportData);
+
+                    if (ret == NBioAPI.Error.NONE)
+                    {
+                        int nWidth = (int)exportData.ImageWidth;
+                        int nHeight = (int)exportData.ImageHeight;
+
+                        {     // raw image save...
+                            FileStream fout;
+
+                            fout = new FileStream(RawDataPath, FileMode.Create);
+                            fout.Write(exportData.AuditData[0].Image[0].Data, 0, nWidth * nHeight);
+                            fout.Close();
+                        }
+
+                        {     // bmp image save...
+                            Bitmap bmp = new Bitmap(nWidth, nHeight, PixelFormat.Format8bppIndexed);
+                            BitmapData data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, PixelFormat.Format8bppIndexed);
+
+                            System.Runtime.InteropServices.Marshal.Copy(exportData.AuditData[0].Image[0].Data, 0, data.Scan0, nWidth * nHeight);
+                            bmp.UnlockBits(data);
+
+                            ColorPalette GrayscalePalette = bmp.Palette;
+
+                            for (int i = 0; i < 256; i++)
+                                GrayscalePalette.Entries[i] = Color.FromArgb(i, i, i);
+
+                            bmp.Palette = GrayscalePalette;
+
+                            bmp.Save(BmpDataPath);
+                        }
+                    }
+
+                    // Free native memory
+                    hAudit.Dispose();
+
+                    //Read the saved bmp file and convert to base64
+                    byte[] imageArray = File.ReadAllBytes(BmpDataPath);
+
+                    var Payload = new VerifyServerRequest
+                    {
+                        ImageBase64 = Convert.ToBase64String(imageArray),
+                        TemplateBase64 = String.Empty, //$"{Content_Type}{Convert.ToBase64String(TemplatesBase64)}",
+                        TemplateFilePath = $"{request.PensionerCode}_{request.PensionerType}.bat",
+                        Success = true,
+                        ErrorMsg = "Fingerprint captured and template created successfully.",
+                        Message = "Fingerprint captured and template created successfully."
+
+                    };
+                    return Payload;
+                }
+                else
+                {
+                    Console.WriteLine($"Capture Function Failed! - {ret}");
+                    Response.Success = false;
+                    Response.ErrorMsg = $"Capture Function Failed! - {ret}";
+                    Response.Message = $"Capture Function Failed! - {ret}";
+                    return Response;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error during fingerprint verification: " + ex.Message);
+                Response.Success = false;
+                Response.ErrorMsg = NeuroticErrorMessage.ExtractNeurotecErrorMessage(ex); ;
+                Response.Message = NeuroticErrorMessage.ExtractNeurotecErrorMessage(ex); ;
+                return Response;
+            }
+
+
+        }
+
 
         //Force cancel ongoing capture
         public void Cancel()
