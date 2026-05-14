@@ -1,16 +1,12 @@
-﻿using BiometricsDemo.Enums;
-using BiometricsDemo.Helpers;
+﻿using BiometricsDemo.Helpers;
 using BiometricsDemo.RequestModels;
 using BiometricsDemo.ResponseModels;
 using Neurotec.Biometrics;
 using Neurotec.Biometrics.Client;
 using Neurotec.IO;
 using Neurotec.Licensing;
-using Newtonsoft.Json;
 using System;
 using System.IO;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BiometricsDemo.Server
