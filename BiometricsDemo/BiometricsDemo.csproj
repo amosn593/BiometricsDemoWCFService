@@ -243,16 +243,7 @@
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
   </None>
-  <ItemGroup>
-    <None Include="NitGenDlls\**\*.*">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="NitGenDlls\NBioBSPCOM.dll" />
-    <Content Include="NitGenDlls\nimgconv.dll" />
-  </ItemGroup>
+  
 </ItemGroup>
   <ItemGroup>
     <Content Include="FScanners\**\*.*" CopyToOutputDirectory="Always" />
