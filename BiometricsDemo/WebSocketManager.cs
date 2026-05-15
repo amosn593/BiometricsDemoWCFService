@@ -231,7 +231,8 @@ namespace BiometricsDemo
                         }
                         else
                         {
-                            var verifyResult = scanService.VerifyFingerPrintOneFingerScanner(verifyRequest);
+                            //VerifyFingerPrintSecuGen  VerifyFingerPrintOneFingerScanner
+                            var verifyResult = scanService.VerifyFingerPrintSecuGen(verifyRequest);
 
                             await SendResponse(socket, "fingerVerify", verifyResult);
                         }

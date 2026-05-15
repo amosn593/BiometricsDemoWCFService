@@ -18,6 +18,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using SecuGen.FDxSDKPro.Windows;
 
 namespace BiometricsDemo.Client
 {
@@ -646,6 +647,167 @@ namespace BiometricsDemo.Client
 
         }
 
+        public VerifyServerRequest VerifyFingerPrintSecuGen(FingerPrintVerifyRequest request)
+        {
+            var Response = new VerifyServerRequest();
+
+            var DirectoryPath = "C:\\BiometricsService";
+            string FolderPath = Path.Combine(
+                DirectoryPath,
+                "Verification_FingerPrints",
+                $"{request.PensionerCode}_{request.PensionerType}");
+
+            Directory.CreateDirectory(FolderPath);
+
+            try
+            {
+                if (string.IsNullOrWhiteSpace(request.PensionerCode)
+                    || request.PensionerType <= 0
+                    || (Biometric)request.Mode != Biometric.Fingerprint)
+                {
+                    Response.Success = false;
+                    Response.ErrorMsg = "Invalid PensionerCode or Biometric";
+                    Response.Message = "Please provide valid PensionerCode and Fingerprint mode.";
+                    return Response;
+                }
+
+                SGFingerPrintManager fpManager = new SGFingerPrintManager();
+
+                SGFPMDeviceName device_name = SGFPMDeviceName.DEV_AUTO;
+
+                //SGFPMDeviceName device_name = SGFPMDeviceName.DEV_UNKNOWN;
+                Int32 device_id = (Int32)SGFPMPortAddr.USB_AUTO_DETECT;
+
+                int error;
+
+                // Initialize scanner
+                error = fpManager.Init(device_name);
+
+                if (error != (int)SGFPMError.ERROR_NONE)
+                {
+                    Response.Success = false;
+                    Response.ErrorMsg = $"Failed to initialize scanner. Error: {error}";
+                    Response.Message = Response.ErrorMsg;
+                    return Response;
+                }
+
+                // Open scanner device
+                error = fpManager.OpenDevice(device_id);
+
+                if (error != (int)SGFPMError.ERROR_NONE)
+                {
+                    Response.Success = false;
+                    Response.ErrorMsg = $"Failed to open scanner device. Error: {error}";
+                    Response.Message = Response.ErrorMsg;
+                    return Response;
+                }
+
+                // Get scanner info
+                SGFPMDeviceInfoParam deviceInfo = new SGFPMDeviceInfoParam();
+
+                error = fpManager.GetDeviceInfo(deviceInfo);
+
+                if (error != (int)SGFPMError.ERROR_NONE)
+                {
+                    Response.Success = false;
+                    Response.ErrorMsg = $"Failed to get device information. Error: {error}";
+                    Response.Message = Response.ErrorMsg;
+                    return Response;
+                }
+
+                int imageWidth = deviceInfo.ImageWidth;
+                int imageHeight = deviceInfo.ImageHeight;
+
+                byte[] imageBuffer = new byte[imageWidth * imageHeight];
+
+                // Capture fingerprint image
+                error = fpManager.GetImage(imageBuffer);
+
+                if (error != (int)SGFPMError.ERROR_NONE)
+                {
+                    Response.Success = false;
+                    Response.ErrorMsg = $"Fingerprint capture failed. Error: {error}";
+                    Response.Message = "Place finger properly on the scanner.";
+                    return Response;
+                }
+
+                
+                // Save RAW file
+                string rawPath = Path.Combine(
+                    FolderPath,
+                    $"{request.PensionerCode}_{request.PensionerType}.raw");
+
+                File.WriteAllBytes(rawPath, imageBuffer);
+
+                // Create Bitmap
+                Bitmap bmp = new Bitmap(
+                    imageWidth,
+                    imageHeight,
+                    PixelFormat.Format8bppIndexed);
+
+                BitmapData bmpData = bmp.LockBits(
+                    new Rectangle(0, 0, bmp.Width, bmp.Height),
+                    ImageLockMode.WriteOnly,
+                    PixelFormat.Format8bppIndexed);
+
+                System.Runtime.InteropServices.Marshal.Copy(
+                    imageBuffer,
+                    0,
+                    bmpData.Scan0,
+                    imageWidth * imageHeight);
+
+                bmp.UnlockBits(bmpData);
+
+                // Set grayscale palette
+                ColorPalette palette = bmp.Palette;
+
+                for (int i = 0; i < 256; i++)
+                {
+                    palette.Entries[i] = Color.FromArgb(i, i, i);
+                }
+
+                bmp.Palette = palette;
+
+                // Save BMP
+                string bmpPath = Path.Combine(
+                    FolderPath,
+                    $"{request.PensionerCode}_{request.PensionerType}.bmp");
+
+                bmp.Save(bmpPath, ImageFormat.Bmp);
+
+                // Save JPG
+                string jpgPath = Path.Combine(
+                    FolderPath,
+                    $"{request.PensionerCode}_{request.PensionerType}.jpg");
+
+                bmp.Save(jpgPath, ImageFormat.Jpeg);
+
+                // Convert image to Base64
+                byte[] imageBytes = File.ReadAllBytes(jpgPath);
+
+               
+                // Build response
+                Response.Success = true;
+                Response.TemplateBase64 = string.Empty;
+                Response.ImageBase64 = Convert.ToBase64String(imageBytes);
+                Response.TemplateFilePath = $"{request.PensionerCode}_{request.PensionerType}.bat";
+
+                Response.ErrorMsg = string.Empty;
+                Response.Message = "Fingerprint captured successfully.";
+
+                fpManager.CloseDevice();
+
+                return Response;
+            }
+            catch (Exception ex)
+            {
+                Response.Success = false;
+                Response.ErrorMsg = NeuroticErrorMessage.ExtractNeurotecErrorMessage(ex);
+                Response.Message = NeuroticErrorMessage.ExtractNeurotecErrorMessage(ex);
+
+                return Response;
+            }
+        }
 
         //Force cancel ongoing capture
         public void Cancel()

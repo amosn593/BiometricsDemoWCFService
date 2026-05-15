@@ -116,6 +116,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BiometricsDemo_Verify\BiometricsDemo\DotNetDlls\NITGEN.SDK.NBioBSP.DLL</HintPath>
     </Reference>
+    <Reference Include="SecuGen.FDxSDKPro.Windows">
+      <HintPath>DotNetDLLs\SecuGen.FDxSDKPro.Windows.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -241,9 +244,45 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\**\*.*" CopyToOutputDirectory="Always" />
-    <Content Include="NitGenDlls\NBioBSP.dll" />
-    <Content Include="NitGenDlls\NBioBSPCOM.dll" />
-    <Content Include="NitGenDlls\nimgconv.dll" />
+    <Content Include="NitGenDlls\NBioBSP.dll">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Link>NBioBSP.dll</Link>
+  </Content>
+
+  <Content Include="NitGenDlls\NBioBSPCOM.dll">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Link>NBioBSPCOM.dll</Link>
+  </Content>
+
+  <Content Include="NitGenDlls\nimgconv.dll">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Link>nimgconv.dll</Link>
+  </Content>
+
+  <Content Include="Secugen\sgbledev.dll">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Link>sgbledev.dll</Link>
+  </Content>
+
+  <Content Include="Secugen\sgfdusdax64.dll">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Link>sgfdusdax64.dll</Link>
+  </Content>
+
+  <Content Include="Secugen\sgfpamx.dll">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Link>sgfpamx.dll</Link>
+  </Content>
+
+  <Content Include="Secugen\sgfplib.dll">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Link>sgfplib.dll</Link>
+  </Content>
+
+  <Content Include="Secugen\sgwsqlib.dll">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Link>sgwsqlib.dll</Link>
+  </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="FaceQuality\**\*.*">
@@ -434,9 +473,7 @@
       <TargetPath>vcruntime140_1.dll</TargetPath>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Secugen\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Emgu.CV.runtime.windows.4.4.0.4061\build\Emgu.CV.runtime.windows.targets" Condition="Exists('..\packages\Emgu.CV.runtime.windows.4.4.0.4061\build\Emgu.CV.runtime.windows.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
