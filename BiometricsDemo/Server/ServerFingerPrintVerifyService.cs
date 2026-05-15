@@ -176,7 +176,6 @@ namespace BiometricsDemo.Server
             
         }
 
-
         private NSubject CreateSubjectFromImageBase64(string imageBase64, string id, NBiometricClient biometricClient)
         {
             try

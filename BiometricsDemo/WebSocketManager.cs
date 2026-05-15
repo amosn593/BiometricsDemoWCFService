@@ -232,7 +232,7 @@ namespace BiometricsDemo
                         else
                         {
                             //VerifyFingerPrintSecuGen  VerifyFingerPrintOneFingerScanner
-                            var verifyResult = scanService.VerifyFingerPrintSecuGen(verifyRequest);
+                            var verifyResult = scanService.VerifyFingerPrintOneFingerScanner(verifyRequest);
 
                             await SendResponse(socket, "fingerVerify", verifyResult);
                         }
