@@ -104,7 +104,7 @@ namespace BiometricsDemo.Server
                     Response.Success = false;
                     Response.Match = false;
                     Response.Message = "No FaceFrame Template Found at Biometrics Service";
-                    Response.ErrorMsg = "No FaceFrame Template Found at Biometrics Service!!!";
+                    Response.ErrorMsg = "No FaceFrame Template Found at Biometrics Service";
                     return Response;
                 }
 

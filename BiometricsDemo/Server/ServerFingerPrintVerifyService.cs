@@ -31,10 +31,11 @@ namespace BiometricsDemo.Server
                 var DirectoryPath = "C:\\BiometricsServer";
                 string FolderPath = Path.Combine(DirectoryPath, "FingerPrints", $"{verifyServerRequest.pensionerCode}_{verifyServerRequest.pensionerType}");
 
-                if (string.IsNullOrEmpty(verifyServerRequest.TemplateBase64) || verifyServerRequest.pensionerCode <= 0 || verifyServerRequest.pensionerType <= 0)
+                if (verifyServerRequest.pensionerCode <= 0 || verifyServerRequest.pensionerType <= 0)
                 {
                     Response.Success = false;
                     Response.ErrorMsg = "Invalid PensionerCode or PensionerType or Biometric!!!";
+                    Response.Message = "Invalid PensionerCode or PensionerType or Biometric!!!";
                     Response.Status = "UnVerified";
                     Response.Match = false;
                     return Response;
@@ -55,7 +56,24 @@ namespace BiometricsDemo.Server
                 {
                     Response.Success = false;
                     Response.ErrorMsg = $"Could not obtain license: {license}";
-                    Response.Message = "Could not obtain license.";
+                    Response.Message = "Could not obtain license: {license}";
+                    Response.Status = "UnVerified";
+                    Response.Match = false;
+                    return Response;
+                }
+
+                // Ensure at least one biometric exists
+                bool hasTemplate =
+                    !string.IsNullOrWhiteSpace(verifyServerRequest.TemplateBase64);
+
+                bool hasImage =
+                    !string.IsNullOrWhiteSpace(verifyServerRequest.ImageBase64);
+
+                if (!hasTemplate && !hasImage)
+                {
+                    Response.Success = false;
+                    Response.ErrorMsg = "Fingerprint template or image is required.";
+                    Response.Message = "Fingerprint template or image is required.";
                     Response.Status = "UnVerified";
                     Response.Match = false;
                     return Response;
@@ -84,25 +102,34 @@ namespace BiometricsDemo.Server
 
                     NSubject SubjectFromSavedTemplate = SubjectFromTemplateBase64(OriginalTemplateBase64);
 
+                    // Candidate subject
+                    NSubject SubjectFromCandidate;
 
-                    // Create a temmplate from the base64string
-                    NSubject SubjectFromBase64 = null;
-
-                    //Check if Template or Imagebase64 submitted
-                    if(string.IsNullOrWhiteSpace(verifyServerRequest.TemplateBase64) && !string.IsNullOrWhiteSpace(verifyServerRequest.ImageBase64))
+                    // ============================================
+                    // OPTION 1: USE EXISTING TEMPLATE
+                    // ============================================
+                    if (hasTemplate)
                     {
-                        // Create template from image base64
-                        
-                        SubjectFromBase64 = CreateSubjectFromImageBase64(verifyServerRequest.ImageBase64, "imagebase64");
-                        
+                        SubjectFromCandidate =
+                            SubjectFromTemplateBase64(
+                                verifyServerRequest.TemplateBase64);
                     }
+                    // ============================================
+                    // OPTION 2: CREATE TEMPLATE FROM IMAGE
+                    // ============================================
                     else
                     {
-                        SubjectFromBase64 = SubjectFromTemplateBase64(verifyServerRequest.TemplateBase64);
+                        SubjectFromCandidate =
+                            CreateSubjectFromImageBase64(
+                                verifyServerRequest.ImageBase64, verifyServerRequest.pensionerCode.ToString(),
+                                biometricClient);
                     }
 
+                    // Create a temmplate from the base64string
+                    //NSubject SubjectFromBase64 = SubjectFromTemplateBase64(verifyServerRequest.TemplateBase64);
+
                     
-                    if (SubjectFromBase64 is null || SubjectFromSavedTemplate is null)
+                    if (SubjectFromCandidate is null || SubjectFromSavedTemplate is null)
                     {
                         Response.Success = false;
                         Response.ErrorMsg = "Null reference or candidate subject template.";
@@ -119,7 +146,7 @@ namespace BiometricsDemo.Server
                     // Set matching speed
                     _biometricClient.FingersMatchingSpeed = NMatchingSpeed.Medium;
 
-                    var Verifystatus = _biometricClient.Verify(SubjectFromSavedTemplate, SubjectFromBase64);
+                    var Verifystatus = _biometricClient.Verify(SubjectFromSavedTemplate, SubjectFromCandidate);
 
                     if (Verifystatus == NBiometricStatus.Ok)
                     {
@@ -149,13 +176,53 @@ namespace BiometricsDemo.Server
             
         }
 
-        private static NSubject CreateSubjectFromTemplate(string templateName)
+
+        private NSubject CreateSubjectFromImageBase64(string imageBase64, string id, NBiometricClient biometricClient)
         {
-            NSubject subject = null;
-            subject = NSubject.FromFile(templateName);
+            try
+            {
+                // Remove data:image/...;base64, if present
+                if (imageBase64.Contains(","))
+                {
+                    imageBase64 = imageBase64.Split(',')[1];
+                }
 
-            return subject;
+                byte[] imageBytes = Convert.FromBase64String(imageBase64);
 
+                using (var ms = new MemoryStream(imageBytes))
+                using (var nstream = NStream.FromStream(ms))
+                using (var image = NImage.FromStream(nstream))
+                {
+                    var finger = new NFinger
+                    {
+                        Image = image
+                    };
+
+                    var subject = new NSubject
+                    {
+                        Id = id
+                    };
+
+                    subject.Fingers.Add(finger);
+
+                    // Create fingerprint template
+                    var status =
+                        biometricClient.CreateTemplate(subject);
+
+                    if (status != NBiometricStatus.Ok)
+                    {
+                        throw new Exception(
+                            $"Template creation failed: {status}");
+                    }
+
+                    return subject;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(
+                    $"Error creating fingerprint subject from image: {ex.Message}");
+            }
         }
 
         private static NSubject SubjectFromTemplateBase64(string b64)
