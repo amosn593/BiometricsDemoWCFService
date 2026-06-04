@@ -223,16 +223,17 @@ namespace BiometricsDemo
 
                     case "fingerVerify":
                         var verifyRequest = JsonConvert.DeserializeObject<FingerPrintVerifyRequest>(receiveModel.data.ToString());
-                        if (verifyRequest.IsOneFingerScanner != true)
-                        {
-                            var verifyResult = await scanService.VerifyFingerPrint(verifyRequest, cancellationToken);
-
-                            await SendResponse(socket, "fingerVerify", verifyResult);
-                        }
-                        else
+                        if (verifyRequest.IsOneFingerScanner == true)
                         {
                             //VerifyFingerPrintSecuGen  VerifyFingerPrintOneFingerScanner
                             var verifyResult = scanService.VerifyFingerPrintOneFingerScanner(verifyRequest);
+
+                            await SendResponse(socket, "fingerVerify", verifyResult);
+                            
+                        }
+                        else
+                        {
+                            var verifyResult = await scanService.VerifyFingerPrint(verifyRequest, cancellationToken);
 
                             await SendResponse(socket, "fingerVerify", verifyResult);
                         }
