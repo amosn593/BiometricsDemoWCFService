@@ -229,7 +229,7 @@ namespace BiometricsDemo
                         {
                             Console.WriteLine("Using one finger scanner verification method");
                             //VerifyFingerPrintSecuGen  VerifyFingerPrintOneFingerScanner
-                            var verifyResult = scanService.VerifyFingerPrintOneFingerScanner(verifyRequest);
+                            var verifyResult = scanService.VerifyFingerPrintSecuGen(verifyRequest);
 
                             await SendResponse(socket, "fingerVerify", verifyResult);
 
