@@ -189,8 +189,6 @@ namespace BiometricsDemo.Server
                 subject.Faces.Add(face);
                 return subject;
             }
-
-
         }
 
        

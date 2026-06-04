@@ -233,7 +233,7 @@ namespace BiometricsDemo
 
                             await SendResponse(socket, "fingerVerify", verifyResult);
 
-                            break;
+                            //break;
 
                         }
                         else
@@ -243,17 +243,10 @@ namespace BiometricsDemo
 
                             await SendResponse(socket, "fingerVerify", verifyResult);
 
-                            break;
+                            //break;
                         }
                         
-
-                        //var verifyService = new FingerPrintVerifyService();
-                        //var verifyRequest = JsonConvert.DeserializeObject<FingerPrintVerifyRequest>(receiveModel.data.ToString());
-                        //var verifyResult = await verifyService.VerifyFingerPrint(verifyRequest);
-
-                        //await SendResponse(socket, "fingerVerify", verifyResult);
-
-                        //break;
+                        break;
 
                     case "faceScan":
                         using (var faceService = new FaceCameraService())
