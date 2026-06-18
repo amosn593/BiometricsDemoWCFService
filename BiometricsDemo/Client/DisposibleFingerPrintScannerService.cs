@@ -788,7 +788,7 @@ namespace BiometricsDemo.Client
                
                 // Build response
                 Response.Success = true;
-                Response.TemplateBase64 = string.Empty;
+                Response.TemplateBase64 = "";
                 Response.ImageBase64 = Convert.ToBase64String(imageBytes);
                 Response.TemplateFilePath = $"{request.PensionerCode}_{request.PensionerType}.bat";
 

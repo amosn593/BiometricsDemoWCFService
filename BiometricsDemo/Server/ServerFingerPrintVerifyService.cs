@@ -31,6 +31,8 @@ namespace BiometricsDemo.Server
                 var DirectoryPath = "C:\\BiometricsServer";
                 string FolderPath = Path.Combine(DirectoryPath, "FingerPrints", $"{verifyServerRequest.pensionerCode}_{verifyServerRequest.pensionerType}");
 
+                Console.WriteLine($"Verify FingerPrint, Folder path: {FolderPath}");
+
                 if (verifyServerRequest.pensionerCode <= 0 || verifyServerRequest.pensionerType <= 0)
                 {
                     Response.Success = false;
@@ -119,10 +121,20 @@ namespace BiometricsDemo.Server
                     // ============================================
                     else
                     {
-                        SubjectFromCandidate =
-                            CreateSubjectFromImageBase64(
-                                verifyServerRequest.ImageBase64, verifyServerRequest.pensionerCode.ToString(),
-                                biometricClient);
+                        byte[] imageBytes = Convert.FromBase64String(verifyServerRequest.ImageBase64);
+
+                        //var subject1 = CreateFingerSubjectFromImage(imageBytes, "subject1");
+
+
+                        //SubjectFromCandidate =
+                        //    CreateSubjectFromImageBase64(
+                        //        verifyServerRequest.ImageBase64, verifyServerRequest.pensionerCode.ToString(),
+                        //        biometricClient);
+
+                        SubjectFromCandidate = CreateFingerSubjectFromImage(imageBytes, "subject1");
+
+
+
                     }
 
                     // Create a temmplate from the base64string
@@ -259,6 +271,32 @@ namespace BiometricsDemo.Server
             }
 
             
+        }
+
+        private NSubject CreateFingerSubjectFromImage(byte[] imageBytes, string id)
+        {
+            using (var ms = new MemoryStream(imageBytes))
+            using (var nstream = NStream.FromStream(ms))
+            using (var image = NImage.FromStream(nstream))
+            {
+                image.HorzResolution = 500;
+                image.VertResolution = 500;
+
+                var finger = new NFinger
+                {
+                    Image = image,
+                    Position = NFPosition.Unknown
+                };
+
+                var subject = new NSubject
+                {
+                    Id = id
+                };
+
+                subject.Fingers.Add(finger);
+
+                return subject;
+            }
         }
 
     }

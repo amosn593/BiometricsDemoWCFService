@@ -209,6 +209,7 @@ namespace BiometricsDemo
                 {
                     case "scanFinger":
                         var scanRequest = JsonConvert.DeserializeObject<BiometricsRequest>(receiveModel.data.ToString());
+                        Console.WriteLine("FingerPrint Capture Request: " + receivedMessage);
                         var scanResult = await scanService.FingerPrintScanner(scanRequest, cancellationToken);
 
                         await SendResponse(socket, "scanFinger", scanResult);
@@ -223,28 +224,28 @@ namespace BiometricsDemo
 
                     case "fingerVerify":
                         var verifyRequest = JsonConvert.DeserializeObject<FingerPrintVerifyRequest>(receiveModel.data.ToString());
+                        Console.WriteLine("FingerPrint Verify Request: " + receivedMessage);
                         if (verifyRequest.IsOneFingerScanner == true)
                         {
+                            Console.WriteLine("Using one finger scanner verification method");
                             //VerifyFingerPrintSecuGen  VerifyFingerPrintOneFingerScanner
-                            var verifyResult = scanService.VerifyFingerPrintOneFingerScanner(verifyRequest);
+                            var verifyResult = scanService.VerifyFingerPrintSecuGen(verifyRequest);
 
                             await SendResponse(socket, "fingerVerify", verifyResult);
-                            
+
+                            //break;
+
                         }
                         else
                         {
+                            Console.WriteLine("Using four finger scanner verification method");
                             var verifyResult = await scanService.VerifyFingerPrint(verifyRequest, cancellationToken);
 
                             await SendResponse(socket, "fingerVerify", verifyResult);
+
+                            //break;
                         }
                         
-
-                        //var verifyService = new FingerPrintVerifyService();
-                        //var verifyRequest = JsonConvert.DeserializeObject<FingerPrintVerifyRequest>(receiveModel.data.ToString());
-                        //var verifyResult = await verifyService.VerifyFingerPrint(verifyRequest);
-
-                        //await SendResponse(socket, "fingerVerify", verifyResult);
-
                         break;
 
                     case "faceScan":
