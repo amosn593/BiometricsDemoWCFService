@@ -19,7 +19,7 @@ namespace BiometricsDemo.Server
         {
             var Response = new ServerTemplateUpdateResponseModel();
             var updatedTemplateBase64 = string.Empty;
-            var DirectoryPath = "C:\\BiometricsServer";
+            var DirectoryPath = "C:\\BiometricsServerUAT";
             string FolderPath = Path.Combine(DirectoryPath, "FingerPrints", $"{serverTemplateUpdateModel.PensionerCode}_{serverTemplateUpdateModel.PensionerType}");
             try
             {

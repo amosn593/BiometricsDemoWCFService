@@ -19,7 +19,7 @@ namespace BiometricsDemo
                     var service = new WcfWindowsService();
                     service.StartDebug(args);
 
-                    //Console.WriteLine("BioMetrics Service running at http://localhost:8181/Service/");
+                    //Console.WriteLine("BioMetrics Service running at http://localhost:9191/Service/");
                     Console.WriteLine("Press any key to stop...");
                     Console.ReadKey();
 

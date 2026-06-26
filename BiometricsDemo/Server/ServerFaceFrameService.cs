@@ -18,7 +18,7 @@ namespace BiometricsDemo.Server
             var Response = new SaveFaceModel();
             try
             {
-                var DirectoryPath = "C:\\BiometricsServer";
+                var DirectoryPath = "C:\\BiometricsServerUAT";
                 string FolderPath = Path.Combine(DirectoryPath, "FaceFrames", $"{saveFaceModel.PensionerCode}_{saveFaceModel.PensionerType}");
 
                 if (string.IsNullOrEmpty(saveFaceModel.PensionerCode) || saveFaceModel.PensionerType <= 0 || string.IsNullOrEmpty(saveFaceModel.ImageBase64))
@@ -58,7 +58,7 @@ namespace BiometricsDemo.Server
             var Response = new ServerRequestResponse();
             try
             {
-                var DirectoryPath = "C:\\BiometricsServer";
+                var DirectoryPath = "C:\\BiometricsServerUAT";
                 string FolderPath = Path.Combine(DirectoryPath, "FaceFrames", $"{saveFaceModel.PensionerCode}_{saveFaceModel.PensionerType}");
 
                 if (string.IsNullOrEmpty(saveFaceModel.PensionerCode) || saveFaceModel.PensionerType <= 0 )
@@ -92,8 +92,25 @@ namespace BiometricsDemo.Server
                     return Response;
                 }
 
+                // Ensure at least one biometric exists
+                bool hasTemplate =
+                    !string.IsNullOrWhiteSpace(saveFaceModel.TemplateBase64);
 
-               
+                bool hasImage =
+                    !string.IsNullOrWhiteSpace(saveFaceModel.ImageBase64);
+
+                if (!hasTemplate && !hasImage)
+                {
+                    Response.Success = false;
+                    Response.ErrorMsg = "Face template or image is required.";
+                    Response.Message = "Face template or image is required.";
+                    Response.Status = "UnVerified";
+                    Response.Match = false;
+                    return Response;
+                }
+
+
+
                 var myTemplatefilename = Path.Combine(FolderPath, $"{saveFaceModel.Imagepath}");
 
                 Console.WriteLine($"Template Path: {myTemplatefilename}");
@@ -108,56 +125,121 @@ namespace BiometricsDemo.Server
                     return Response;
                 }
 
-                //Load the saved Image
-                var savedImageBytes = File.ReadAllBytes(myTemplatefilename);
-
-                byte[] imageBytes = Convert.FromBase64String(saveFaceModel.ImageBase64);
-                
-                using (var _biometricClient = new NBiometricClient { })
+                if (hasTemplate)
                 {
-                    using (var subject1 = CreateSubjectFromImage(savedImageBytes, "subject1"))
-                    using (var subject2 = CreateSubjectFromImage(imageBytes, "subject2"))
-                    {
-                        // Generate templates
-                        var status1 = _biometricClient.CreateTemplate(subject1);
-                        var status2 = _biometricClient.CreateTemplate(subject2);
+                    //Load the saved Image
+                    var savedImageBytes = File.ReadAllBytes(myTemplatefilename);
 
-                        if (status1 != NBiometricStatus.Ok || status2 != NBiometricStatus.Ok)
+                    // Candidate subject
+                    NSubject SubjectFromCandidate;
+
+                    using (var _biometricClient = new NBiometricClient { })
+                    {
+                        using (var subject1 = CreateSubjectFromImage(savedImageBytes, "subject1"))
+                       
                         {
-                            Console.WriteLine($"Template creation failed. Status1={status1}, Status2={status2}");
+                            // Generate templates
+                            var status1 = _biometricClient.CreateTemplate(subject1);
+                           
+
+                           
+
+                            SubjectFromCandidate =
+                            SubjectFromTemplateBase64(saveFaceModel.TemplateBase64);
+
+                            if (status1 != NBiometricStatus.Ok )
+                            {
+                                Console.WriteLine($"Template creation failed. Status1={status1}, ");
+                                Response.Success = false;
+                                Response.ErrorMsg = $"Template creation failed. Status1={status1}, ";
+                                Response.Message = $"Template creation failed. Status1={status1}, ";
+                                Response.Status = "UnVerified";
+                                Response.Match = false;
+                                return Response;
+                            }
+
+                            _biometricClient.MatchingThreshold = 90;
+
+                            _biometricClient.FacesMatchingSpeed = NMatchingSpeed.Medium;
+
+                            // Compare the two templates
+                            var Verifystatus = _biometricClient.Verify(subject1, SubjectFromCandidate);
+
+                            if (Verifystatus == NBiometricStatus.Ok)
+                            {
+                                Response.Success = true;
+                                Response.ErrorMsg = $"Verification success";
+                                Response.Message = $"Verification success";
+                                Response.Status = "Verified";
+                                Response.Match = true;
+                                return Response;
+                            }
+                            Console.WriteLine($"Verification failed. Status={Verifystatus}");
                             Response.Success = false;
-                            Response.ErrorMsg = $"Template creation failed. Status1={status1}, Status2={status2}";
-                            Response.Message = $"Template creation failed. Status1={status1}, Status2={status2}";
+                            Response.ErrorMsg = $"Verification unsuccess";
+                            Response.Message = "FaceFrames did not match.";
                             Response.Status = "UnVerified";
                             Response.Match = false;
                             return Response;
                         }
+                    }
 
-                        _biometricClient.MatchingThreshold = 90;
+                }
+                else
+                {
+                    //Load the saved Image
+                    var savedImageBytes = File.ReadAllBytes(myTemplatefilename);
 
-                        _biometricClient.FacesMatchingSpeed = NMatchingSpeed.Medium;
+                    byte[] imageBytes = Convert.FromBase64String(saveFaceModel.ImageBase64);
 
-                        // Compare the two templates
-                        var Verifystatus = _biometricClient.Verify(subject1, subject2);
-
-                        if (Verifystatus == NBiometricStatus.Ok)
+                    using (var _biometricClient = new NBiometricClient { })
+                    {
+                        using (var subject1 = CreateSubjectFromImage(savedImageBytes, "subject1"))
+                        using (var subject2 = CreateSubjectFromImage(imageBytes, "subject2"))
                         {
-                            Response.Success = true;
-                            Response.ErrorMsg = $"Verification success";
-                            Response.Message = $"Verification success";
-                            Response.Status = "Verified";
-                            Response.Match = true;
+                            // Generate templates
+                            var status1 = _biometricClient.CreateTemplate(subject1);
+                            var status2 = _biometricClient.CreateTemplate(subject2);
+
+                            if (status1 != NBiometricStatus.Ok || status2 != NBiometricStatus.Ok)
+                            {
+                                Console.WriteLine($"Template creation failed. Status1={status1}, Status2={status2}");
+                                Response.Success = false;
+                                Response.ErrorMsg = $"Template creation failed. Status1={status1}, Status2={status2}";
+                                Response.Message = $"Template creation failed. Status1={status1}, Status2={status2}";
+                                Response.Status = "UnVerified";
+                                Response.Match = false;
+                                return Response;
+                            }
+
+                            _biometricClient.MatchingThreshold = 90;
+
+                            _biometricClient.FacesMatchingSpeed = NMatchingSpeed.Medium;
+
+                            // Compare the two templates
+                            var Verifystatus = _biometricClient.Verify(subject1, subject2);
+
+                            if (Verifystatus == NBiometricStatus.Ok)
+                            {
+                                Response.Success = true;
+                                Response.ErrorMsg = $"Verification success";
+                                Response.Message = $"Verification success";
+                                Response.Status = "Verified";
+                                Response.Match = true;
+                                return Response;
+                            }
+                            Console.WriteLine($"Verification failed. Status={Verifystatus}");
+                            Response.Success = false;
+                            Response.ErrorMsg = $"Verification unsuccess";
+                            Response.Message = "FaceFrames did not match.";
+                            Response.Status = "UnVerified";
+                            Response.Match = false;
                             return Response;
                         }
-                        Console.WriteLine($"Verification failed. Status={Verifystatus}");
-                        Response.Success = false;
-                        Response.ErrorMsg = $"Verification unsuccess";
-                        Response.Message = "FaceFrames did not match.";
-                        Response.Status = "UnVerified";
-                        Response.Match = false;
-                        return Response;
                     }
+
                 }
+
 
             }
             
@@ -186,6 +268,18 @@ namespace BiometricsDemo.Server
             }
         }
 
-       
+        private static NSubject SubjectFromTemplateBase64(string b64)
+        {
+            if (string.IsNullOrWhiteSpace(b64)) throw new ArgumentException("Empty base64.");
+
+            byte[] bytes = Convert.FromBase64String(b64);
+
+            // Option A (newer SDKs): set template buffer directly
+            var subject = new NSubject();
+            subject.SetTemplateBuffer(new NBuffer(bytes));
+            return subject;
+
+        }
+
     }
 }

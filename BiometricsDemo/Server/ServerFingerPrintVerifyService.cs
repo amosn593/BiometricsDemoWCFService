@@ -28,7 +28,7 @@ namespace BiometricsDemo.Server
             try
             {
                 
-                var DirectoryPath = "C:\\BiometricsServer";
+                var DirectoryPath = "C:\\BiometricsServerUAT";
                 string FolderPath = Path.Combine(DirectoryPath, "FingerPrints", $"{verifyServerRequest.pensionerCode}_{verifyServerRequest.pensionerType}");
 
                 Console.WriteLine($"Verify FingerPrint, Folder path: {FolderPath}");
