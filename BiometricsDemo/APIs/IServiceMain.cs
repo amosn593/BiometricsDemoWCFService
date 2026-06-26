@@ -28,6 +28,14 @@ namespace BiometricsDemo.APIs
         string GetLicense();
 
         [OperationContract]
+        [WebInvoke(Method = "GET",
+                UriTemplate = "/getVoiceLicense",
+                RequestFormat = WebMessageFormat.Json,
+                ResponseFormat = WebMessageFormat.Json,
+                BodyStyle = WebMessageBodyStyle.Bare)]
+        string GetVoiceLicense();
+
+        [OperationContract]
         [WebGet(
                 UriTemplate = "/deleteFaceFrameData?path={path}",
                 //RequestFormat = WebMessageFormat.Json,

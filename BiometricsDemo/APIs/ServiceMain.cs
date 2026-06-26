@@ -199,6 +199,32 @@ namespace BiometricsDemo.APIs
                 return $"Could not obtain license: {ex.Message}";
             }
         }
+        public string GetVoiceLicense()
+        {
+            try
+            {
+                const string license = "VoiceExtractor,VoiceMatcher";
+
+                if (NLicenseManager.TrialMode == false)
+                {
+                    NLicense.Release(license);
+                    //NLicenseManager.TrialMode = true;// GetTrialModeFlag();
+                    Console.WriteLine("Trial mode: " + NLicenseManager.TrialMode);
+                }
+
+                if (!NLicense.Obtain("/local", 5000, license))
+                {
+
+                    return $"Could not obtain license: {license}";
+                }
+
+                return $"Obtained license: {license}";
+            }
+            catch (Exception ex)
+            {
+                return $"Could not obtain license: {ex.Message}";
+            }
+        }
         public List<CameraListResponseModel> GetCameraList()
         {
             try
@@ -217,7 +243,7 @@ namespace BiometricsDemo.APIs
         {
             try
             {
-                var DirectoryPath = "C:\\BiometricsServer";
+                var DirectoryPath = "C:\\BiometricsServerUAT";
                 string FolderPath = Path.Combine(DirectoryPath, "FaceFrames", $"{path}");
 
                 if (Directory.Exists(FolderPath))
@@ -257,7 +283,7 @@ namespace BiometricsDemo.APIs
         {
             try
             {
-                var DirectoryPath = "C:\\BiometricsServer";
+                var DirectoryPath = "C:\\BiometricsServerUAT";
                 string FolderPath = Path.Combine(DirectoryPath, "FingerPrints", $"{path}");
 
                 if (Directory.Exists(FolderPath))

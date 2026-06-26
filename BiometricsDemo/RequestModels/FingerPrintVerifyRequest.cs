@@ -16,6 +16,6 @@ namespace BiometricsDemo.RequestModels
         public int? Mode { get; set; }
         public int Finger { get; set; }
         public int UserId { get; set; } = 0;
-        public bool IsOneFingerScanner { get; set; }
+        public bool IsOneFingerScanner { get; set; } = true;
     }
 }

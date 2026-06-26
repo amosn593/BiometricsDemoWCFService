@@ -184,6 +184,7 @@
     <Compile Include="RequestModels\FingerPrintVerifyRequest.cs" />
     <Compile Include="RequestModels\SaveFaceModel.cs" />
     <Compile Include="RequestModels\ServerTemplateUpdateModel.cs" />
+    <Compile Include="RequestModels\ServerVoiceModel.cs" />
     <Compile Include="RequestModels\VerifyServerRequest.cs" />
     <Compile Include="ResponseModels\BiometricsResponse.cs" />
     <Compile Include="ResponseModels\CameraListResponseModel.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="Server\ServerFaceFrameService.cs" />
     <Compile Include="Server\ServerFingerPrintVerifyService.cs" />
     <Compile Include="Server\ServerTemplateUpdate.cs" />
+    <Compile Include="Server\ServerVoiceService.cs" />
     <Compile Include="WcfWindowsService.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -245,44 +247,37 @@
   <ItemGroup>
     <Content Include="Data\**\*.*" CopyToOutputDirectory="Always" />
     <Content Include="NitGenDlls\NBioBSP.dll">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    <Link>NBioBSP.dll</Link>
-  </Content>
-
-  <Content Include="NitGenDlls\NBioBSPCOM.dll">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    <Link>NBioBSPCOM.dll</Link>
-  </Content>
-
-  <Content Include="NitGenDlls\nimgconv.dll">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    <Link>nimgconv.dll</Link>
-  </Content>
-
-  <Content Include="Secugen\sgbledev.dll">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    <Link>sgbledev.dll</Link>
-  </Content>
-
-  <Content Include="Secugen\sgfdusdax64.dll">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    <Link>sgfdusdax64.dll</Link>
-  </Content>
-
-  <Content Include="Secugen\sgfpamx.dll">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    <Link>sgfpamx.dll</Link>
-  </Content>
-
-  <Content Include="Secugen\sgfplib.dll">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    <Link>sgfplib.dll</Link>
-  </Content>
-
-  <Content Include="Secugen\sgwsqlib.dll">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    <Link>sgwsqlib.dll</Link>
-  </Content>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>NBioBSP.dll</Link>
+    </Content>
+    <Content Include="NitGenDlls\NBioBSPCOM.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>NBioBSPCOM.dll</Link>
+    </Content>
+    <Content Include="NitGenDlls\nimgconv.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>nimgconv.dll</Link>
+    </Content>
+    <Content Include="Secugen\sgbledev.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>sgbledev.dll</Link>
+    </Content>
+    <Content Include="Secugen\sgfdusdax64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>sgfdusdax64.dll</Link>
+    </Content>
+    <Content Include="Secugen\sgfpamx.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>sgfpamx.dll</Link>
+    </Content>
+    <Content Include="Secugen\sgfplib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>sgfplib.dll</Link>
+    </Content>
+    <Content Include="Secugen\sgwsqlib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>sgwsqlib.dll</Link>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="FaceQuality\**\*.*">
